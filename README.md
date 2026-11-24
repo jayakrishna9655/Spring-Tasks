@@ -9,6 +9,8 @@ A RESTful backend service built with **Spring Boot**, **Spring Data JPA**, and *
 - **Add Product**: Save new product records with name, price, and quantity.
 - **Get All Products**: Retrieve all products currently stored in the database.
 - **Get Product By ID**: Fetch product details by its unique identifier.
+- **Update Product**: Update product name, price, and quantity by ID with `200 OK` or `404 Not Found`.
+- **Delete Product**: Remove product by ID with `204 No Content` or `404 Not Found`.
 - **Database Persistence**: Automatic schema management and relational persistence using JPA/Hibernate with MySQL.
 
 ---
@@ -89,6 +91,7 @@ The server will start at `http://localhost:8080`.
 | `POST` | `/api/products` | Add a new product |
 | `GET` | `/api/products` | Retrieve all products |
 | `GET` | `/api/products/{ID}` | Retrieve a product by ID |
+| `PUT` | `/api/products/{ID}` | Update a product by ID (200 OK / 404 Not Found) |
 | `DELETE` | `/api/products/{ID}` | Delete a product by ID (204 No Content / 404 Not Found) |
 
 ---
@@ -138,6 +141,31 @@ The server will start at `http://localhost:8080`.
   "quantity": 50
 }
 ```
+
+#### 4. Update Product (`PUT /api/products/1`)
+**Request Body:**
+```json
+{
+  "name": "Wireless Mouse Pro",
+  "price": 29.99,
+  "quantity": 80
+}
+```
+
+**Response (`200 OK`):**
+```json
+{
+  "id": 1,
+  "name": "Wireless Mouse Pro",
+  "price": 29.99,
+  "quantity": 80
+}
+```
+*(Returns `404 Not Found` if the product ID does not exist)*
+
+#### 5. Delete Product (`DELETE /api/products/1`)
+**Response (`204 No Content`):**
+*(Empty body on successful deletion. Returns `404 Not Found` if the product ID does not exist)*
 
 ---
 
