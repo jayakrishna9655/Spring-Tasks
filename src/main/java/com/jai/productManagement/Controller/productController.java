@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +43,20 @@ public class productController {
 	@GetMapping("/products/{ID}")
 	public productEntity getProductsById(@PathVariable("ID") Long id) {
 		return service.getProductsById(id);
+	}
+	
+	@PutMapping("/products/{ID}")
+	public ResponseEntity<productEntity> updateProductsById(@PathVariable("ID") Long id,@RequestBody productEntity proEntity){
+		
+		productEntity updated = service.updateProductsById(id,proEntity);
+		
+		if(updated !=null) {
+			return ResponseEntity.ok(updated);
+		}
+		else {
+			return ResponseEntity.notFound().build();
+		}
+		
 	}
 	
 	@DeleteMapping("/products/{ID}")

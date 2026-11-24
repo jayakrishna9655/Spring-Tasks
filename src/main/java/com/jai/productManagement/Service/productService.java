@@ -1,6 +1,8 @@
 package com.jai.productManagement.Service;
 
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jai.productManagement.Entity.productEntity;
@@ -35,6 +37,17 @@ public class productService {
 		}
 		return false;
 		 
+	}
+
+	public productEntity updateProductsById(Long id, productEntity newDetails) {
+		
+		return repo.findById(id).map( olddata ->{
+				olddata.setName(newDetails.getName());
+				olddata.setPrice(newDetails.getPrice());
+				olddata.setQuantity(newDetails.getQuantity());
+				return repo.save(newDetails);
+		}).orElse(null);	
+		
 	}
 	
 
