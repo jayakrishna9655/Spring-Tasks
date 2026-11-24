@@ -89,6 +89,7 @@ The server will start at `http://localhost:8080`.
 | `POST` | `/api/products` | Add a new product |
 | `GET` | `/api/products` | Retrieve all products |
 | `GET` | `/api/products/{ID}` | Retrieve a product by ID |
+| `DELETE` | `/api/products/{ID}` | Delete a product by ID (204 No Content / 404 Not Found) |
 
 ---
 

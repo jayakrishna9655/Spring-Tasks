@@ -1,8 +1,6 @@
 package com.jai.productManagement.Service;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jai.productManagement.Entity.productEntity;
@@ -10,9 +8,12 @@ import com.jai.productManagement.Repository.productRepository;
 
 @Service
 public class productService {
-
-	@Autowired
-	productRepository repo;
+	
+	private final productRepository repo;
+	
+	public productService(productRepository repo) {
+		this.repo=repo;
+	}
 	
 	public productEntity saveProducts(productEntity proEntity) {
 		
@@ -24,7 +25,16 @@ public class productService {
 	}
 
 	public productEntity getProductsById(Long id) {
-		return  repo.findById(id).get();
+		return  repo.findById(id).orElseThrow(() -> new RuntimeException("product not with id: "+id));
+	}
+
+	public Boolean deleteProductsById(Long id) {
+		if(repo.existsById(id)) {
+			repo.deleteById(id);
+			return true;
+		}
+		return false;
+		 
 	}
 	
 
