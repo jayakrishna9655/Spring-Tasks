@@ -11,6 +11,8 @@ A RESTful backend service built with **Spring Boot**, **Spring Data JPA**, and *
 - **Get Product By ID**: Fetch product details by its unique identifier.
 - **Update Product**: Update product name, price, and quantity by ID with `200 OK` or `404 Not Found`.
 - **Delete Product**: Remove product by ID with `204 No Content` or `404 Not Found`.
+- **Input Validation**: Field-level validation constraints (`@NotBlank`, `@Positive`, `@Min`) on product properties.
+- **Centralized Exception Handling**: Global exception handling via `@RestControllerAdvice` returning clean `404 Not Found` responses.
 - **Database Persistence**: Automatic schema management and relational persistence using JPA/Hibernate with MySQL.
 
 ---
@@ -18,7 +20,7 @@ A RESTful backend service built with **Spring Boot**, **Spring Data JPA**, and *
 ## 🛠️ Tech Stack
 
 - **Java**: 17
-- **Framework**: Spring Boot 3+ (Spring Web, Spring Data JPA)
+- **Framework**: Spring Boot (Spring Web, Spring Data JPA, Spring Validation)
 - **Database**: MySQL
 - **Build Tool**: Maven
 
@@ -31,7 +33,7 @@ productManagement/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/jai/productManagement/
-│   │   │   ├── Controller/      # REST API Controllers (productController.java)
+│   │   │   ├── Controller/      # REST API Controllers (productController.java, GlobalExceptionHandler.java)
 │   │   │   ├── Entity/          # JPA Entity definitions (productEntity.java)
 │   │   │   ├── Repository/      # Spring Data JPA Repositories (productRepository.java)
 │   │   │   ├── Service/         # Business logic layer (productService.java)
