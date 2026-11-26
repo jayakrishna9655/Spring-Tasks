@@ -2,6 +2,8 @@ package com.jai.productManagement.Controller;
 
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,8 +43,14 @@ public class productController {
 	}
 	
 	@GetMapping("/products/{ID}")
-	public productEntity getProductsById(@PathVariable("ID") Long id) {
-		return service.getProductsById(id);
+	public ResponseEntity<productEntity> getProductsById(@PathVariable("ID") Long id) {
+		productEntity updated= service.getProductsById(id);
+		if(updated !=null) {
+			return ResponseEntity.ok(updated);
+		}
+		else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	@PutMapping("/products/{ID}")
@@ -50,12 +58,10 @@ public class productController {
 		
 		productEntity updated = service.updateProductsById(id,proEntity);
 		
-		if(updated !=null) {
-			return ResponseEntity.ok(updated);
+		if(updated ==null) {
+			throw new RuntimeException("Update not done ,kinkly contact jai") ;
 		}
-		else {
-			return ResponseEntity.notFound().build();
-		}
+		return ResponseEntity.ok(updated);
 		
 	}
 	
