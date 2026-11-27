@@ -8,4 +8,8 @@ import com.jai.productManagement.Entity.productEntity;
 @Repository
 public interface productRepository extends JpaRepository<productEntity, Long>{
 
+	default productEntity searchByData(productEntity data) {
+		return data;
+	}
+
 }
