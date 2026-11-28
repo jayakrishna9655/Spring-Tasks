@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jai.productManagement.Entity.ProductPageResponse;
 import com.jai.productManagement.Entity.productEntity;
 import com.jai.productManagement.Service.productService;
 
@@ -76,6 +78,16 @@ public class productController {
 		return ResponseEntity.notFound().build();
 		
 	}
+	
+    @GetMapping("/products/search")
+    public ResponseEntity<ProductPageResponse> searchProducts(
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(service.searchProducts(name, page, size, sortBy, direction));
+    }
 	
 	
 }
